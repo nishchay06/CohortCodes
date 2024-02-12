@@ -2,17 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 function App() {
-  // const [todos, setTodos] = useState([])
-  // useEffect(() => {
-  //   axios.get("https://sum-server.100xdevs.com/todos").then((response) => {
-  //     setTodos(response.data.todos)
-  //   })
-  // }, [])
   return (
     <>
-      {/* {todos.map((todo) => {
-        return <Todo title={todo.title} description={todo.description} />
-      })} */}
       <GetTodo id={5} />
     </>
   )
