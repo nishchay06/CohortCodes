@@ -36,7 +36,7 @@ function GetTodo({ id }) {
 
 function Button({ id, onClick }) {
   return (
-    <button style={{ margin: 10 }} onClick={() => onClick(id)}>
+    <button style={{ margin: 5 }} onClick={() => onClick(id)}>
       {id}
     </button>
   )
