@@ -9,6 +9,8 @@ function App() {
   )
 }
 
+// added a comment
+
 function GetTodo({ id }) {
   const [todo, setTodo] = useState({})
   useEffect(() => {
