@@ -1,6 +1,7 @@
+import React, { Suspense } from "react"
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
-import { Landing } from "./components/Landing"
-import { Dashboard } from "./components/Dashboard"
+const Landing = React.lazy(() => import("./components/Landing"))
+const Dashboard = React.lazy(() => import("./components/Dashboard"))
 
 function App() {
   return (
@@ -8,8 +9,22 @@ function App() {
       <BrowserRouter>
         <Appbar />
         <Routes>
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/' element={<Landing />} />
+          <Route
+            path='/dashboard'
+            element={
+              <Suspense fallback={"loading..."}>
+                <Dashboard />
+              </Suspense>
+            }
+          />
+          <Route
+            path='/'
+            element={
+              <Suspense fallback={"loading..."}>
+                <Landing />
+              </Suspense>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
