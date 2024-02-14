@@ -1,9 +1,11 @@
-import React, { Suspense } from "react"
+import React, { Suspense, useContext, useState } from "react"
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
+import { CountContext } from "./context"
 const Landing = React.lazy(() => import("./components/Landing"))
 const Dashboard = React.lazy(() => import("./components/Dashboard"))
 
 function App() {
+  const [count, setCount] = useState(0)
   return (
     <>
       <BrowserRouter>
@@ -27,6 +29,33 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <CountContext.Provider value={{count,setCount}}>
+        <Count />
+      </CountContext.Provider>
+    </>
+  )
+}
+
+function Count() {
+  return (
+    <>
+      <CountRenderer />
+      <Buttons />
+    </>
+  )
+}
+
+function CountRenderer() {
+  const {count, setCount} = useContext(CountContext)
+  return <div>{count}</div>
+}
+
+function Buttons() {
+  const {count, setCount} = useContext(CountContext)
+  return (
+    <>
+      <button onClick={() => setCount(count - 1)}>Decrease</button>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
     </>
   )
 }
