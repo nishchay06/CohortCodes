@@ -1,5 +1,5 @@
-import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import { countAtom } from "./store/atoms/count"
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil"
+import { countAtom, evenSelector } from "./store/atoms/count"
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function Count() {
     <>
       <CountRenderer />
       <Buttons />
+      <EvenCountRenderer/>
     </>
   )
 }
@@ -33,6 +34,11 @@ function Buttons() {
       <button onClick={() => setCount(count => count + 1)}>Increase</button>
     </>
   )
+}
+
+function EvenCountRenderer() {
+  const isEven = useRecoilValue(evenSelector)
+  return <div>{!isEven ? "It is even." : null}</div>
 }
 
 export default App
