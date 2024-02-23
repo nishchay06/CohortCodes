@@ -1,32 +1,28 @@
+import axios from "axios"
 import { atom, selector } from "recoil"
 
-export const networkAtom = atom({
+export const notifications = atom({
   key: "networkAtom",
-  default: 104,
+  default: selector({
+    key: "asyncDataFetchSelector",
+    get: async () => {
+      const res = await axios.get(
+        "https://sum-server.100xdevs.com/notifications"
+      )
+      return res.data
+    },
+  }),
 })
 
-export const jobsAtom = atom({
-  key: "jobsAtom",
-  default: 0,
-})
-
-export const notificationsAtom = atom({
-  key: "notificationsAtom",
-  default: 12,
-})
-
-export const messagingAtom = atom({
-  key: "messagingAtom",
-  default: 0,
-})
-
-export const totalNot = selector({
-  key: "totalNotifications",
+export const totalNotificationsSelector = selector({
+  key: "totalNotificationsSelector",
   get: ({ get }) => {
-    const netAtom = get(networkAtom)
-    const jobAtom = get(jobsAtom)
-    const notAtom = get(notificationsAtom)
-    const mesAtom = get(messagingAtom)
-    return netAtom + notAtom + mesAtom + jobAtom
+    const allNotifications = get(notifications)
+    return (
+      allNotifications.network +
+      allNotifications.jobs +
+      allNotifications.messaging +
+      allNotifications.notifications
+    )
   },
 })
